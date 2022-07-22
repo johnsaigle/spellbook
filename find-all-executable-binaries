@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Purpose: find all binaries in a file
+
+# Method: Pipes all files in current directory into a perl command
+#   -B means a binary file, kinda. See: https://stackoverflow.com/a/44632654, also: `man perlfunc`
+#   -x means executable
+find . -type f | perl -lne 'print if -B -x '
