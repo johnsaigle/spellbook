@@ -4,7 +4,8 @@
 
 Sometimes in while deep in the computer you find something really cool or useful 
 and want to tell a friend about it. But maybe it's too obscure even for other,
-nerds. Or maybe they don't use the same software as you.
+nerds. Or maybe they don't use the same software as you. Or maybe you've tried
+wading through SO answers and after trying the basics you are still stuck.
 
 This is a place for things like that.
 
