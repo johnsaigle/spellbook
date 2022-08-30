@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# Enter a URL, spits out the contents of <title></title> on that page.
+# The idea is to quickly store a link alongside the title to:
+#   - keep track of articles to read in a text file
+#   - citing technical references 
+#   - really whatever
+#
+# Depends on:
+#   - htmlq (https://github.com/mgdm/htmlq#installation)
+
+url=$1
+if [ -z $url ]; then
+    echo 'no url'
+    exit 1
+fi
+
+curl -s $url | htmlq "title" --text
+echo $url
