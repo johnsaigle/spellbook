@@ -1,0 +1,41 @@
+#!/usr/bin/env perl
+# Extract only certain sections of Markdown text, like all the content under the '###' headings. Stop at the next heading.
+# Quick and dirty. 
+#
+# Enhancments:
+#   - Modify to do 'recursive' or like, print everything from a heading level and down.
+#   - Make it easy to parse the output somehow. Like run this and then grab the content of the 3rd '###' heading and ignore the others
+
+use v5.30; # this is what I've got on mac. should work with any modern version
+use strict;
+use warnings;
+
+my $seperator = shift or die "Usage: $0 SEPERATOR (e.g. '###') \n";
+
+$seperator =~ /^#/ or die "Seperator should be a Markdown heading (should start with '#')\n";
+
+my $len = length $seperator;
+
+if ($len < 1 or $len > 6) { die "Seperator should be length 1-6\n"; }
+
+# Algorithm: 
+# - Locate line starting with $seperator. 
+# - Enable printing
+# - Print until the next Markdown heading. Disable printing
+my $printing = 0;
+while (<>) {
+
+    # Stop printing when we hit the next heading
+    if ($_ =~ /^#/) { 
+        $printing = 0;
+    }
+
+    # Enable printing when we find $seperator. Value should be 
+    # Regex explanation: look for $seperator at the beginning of the line
+    # Stop at next '#' characters. This is so we can enable printing at '##' but not at '###'
+    if ($_ =~ qr/^$seperator[^#]+/){
+        $printing = 1;
+    }
+
+    print $_ if $printing;
+}
