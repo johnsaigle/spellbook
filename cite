@@ -11,9 +11,12 @@
 
 url=$1
 if [ -z $url ]; then
-    echo 'no url'
+    # fail silently in UNIX style
     exit 1
 fi
 
+# TODO should probably use -L to follow redirects
+# TODO should check response code here and fail if not 200
 curl -s $url | htmlq "title" --text
 echo $url
+echo # new line is nice for appending to files
